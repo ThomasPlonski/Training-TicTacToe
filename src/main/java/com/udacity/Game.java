@@ -153,60 +153,61 @@ public class Game {
         //Student code goes here ...
 
 ////      My first version
-//
-//
-//        boolean isWinner = false;
-//        int sameSignInColumn = 0;
-//        int sameSignInRow = 0;
-//
-////     check for winning vertically or horizontally
-//            for (int i = 0; i < 3; i++) {
-//                for (int j = 0; j < 3; j++) {
-//                    if (grid[i][j] == turn) {
-//                        sameSignInColumn++;
-//                    }
-//                    if (grid[j][i] == turn) {
-//                        sameSignInRow++;
-//                    }
-//
-//                    if (sameSignInColumn == 3 || sameSignInRow == 3) {
-//                            isWinner = true;
-//                            break;
-//                        }
-//                    }
-//                if (isWinner) {
-//                    break;
-//                }
-//                sameSignInColumn = 0;
-//                sameSignInRow = 0;
-//            }
-//
-////check for winning diagonally
-//        if (grid[0][0] == turn && grid[1][1] == turn && grid[2][2] == turn) {
-//            isWinner = true;
-//        } else if  (grid[0][2] == turn && grid[1][1] == turn && grid[2][0] == turn) {
-//            isWinner = true;
-//        }
-//
-//            if (isWinner) {
-//                if (turn == 'x') {
-//                    result = "X wins";
-//                } else {
-//                    result = "O wins";
-//                }
-//            } else if (freeSpots == 0) {
-//                result = "Tie";
-//            }
-//
-//
-////        'change turn in case of playing with ai'
-//            if (turn == 'x') {
-//                turn = 'o';
-//            } else if (turn == 'o') {
-//                turn = 'x';
-//            }
+/*
 
-        char winner = '-';
+        boolean isWinner = false;
+        int sameSignInColumn = 0;
+        int sameSignInRow = 0;
+
+//     check for winning vertically or horizontally
+            for (int i = 0; i < 3; i++) {
+                for (int j = 0; j < 3; j++) {
+                    if (grid[i][j] == turn) {
+                        sameSignInColumn++;
+                    }
+                    if (grid[j][i] == turn) {
+                        sameSignInRow++;
+                    }
+
+                    if (sameSignInColumn == 3 || sameSignInRow == 3) {
+                            isWinner = true;
+                            break;
+                        }
+                    }
+                if (isWinner) {
+                    break;
+                }
+                sameSignInColumn = 0;
+                sameSignInRow = 0;
+            }
+
+//check for winning diagonally
+        if (grid[0][0] == turn && grid[1][1] == turn && grid[2][2] == turn) {
+            isWinner = true;
+        } else if  (grid[0][2] == turn && grid[1][1] == turn && grid[2][0] == turn) {
+            isWinner = true;
+        }
+
+            if (isWinner) {
+                if (turn == 'x') {
+                    result = "X wins";
+                } else {
+                    result = "O wins";
+                }
+            } else if (freeSpots == 0) {
+                result = "Tie";
+            }
+
+
+//        'change turn in case of playing with ai'
+            if (turn == 'x') {
+                turn = 'o';
+            } else if (turn == 'o') {
+                turn = 'x';
+            }*/
+
+//        SECOND VERSION
+/*        char winner = '-';
 
 //      check horizontally
         if ((grid[0][0] == grid[1][0]) && (grid[1][0] == grid[2][0]) && grid[0][0] != '-') {winner = grid[0][0];}
@@ -228,7 +229,45 @@ public class Game {
                 result = "O wins";
             } else if (freeSpots == 0) {
                 result = "Tie";
-           }
+           }*/
+
+//        THIRD VERSION (ALL TEST PASSED)
+//        check diagonally
+//        by 'x'
+        if(grid[0][0] == 'x' && grid[1][1] == 'x' && grid[2][2] == 'x' || grid[2][0] == 'x' && grid[1][1] == 'x' && grid[0][2] == 'x'){
+            result = "x wins";
+        }
+//       by 'o'
+        if(grid[0][0] == 'o' && grid[1][1] == 'o' && grid[2][2] == 'o' ||grid[2][0] == 'o' && grid[1][1] == 'o' && grid[0][2] == 'o'){
+            result = "o wins";
+        }
+
+//  check horizontally and verticallyat once
+        for(int i = 0; i < 3; i++){
+//      by 'x'
+            if(grid[i][0] == 'x' && grid[i][1] == 'x' && grid[i][2] == 'x'){
+                result = "x wins";
+            }
+            if (grid[0][i] == 'x' && grid[1][i] == 'x' && grid[2][i] == 'x'){
+            result = "x wins";
+            }
+//      by 'o' - same as above but 'o' isntead of 'x'
+            if (grid[i][0] == 'o' && grid[i][1] == 'o' && grid[i][2] == 'o'){
+            result = "o wins";
+            }
+            if (grid[0][i] == 'o' && grid[1][i] == 'o' && grid[2][i] == 'o') {
+            result = "o wins";
+            }
+    }
+
+//  check '-' - THIS WAS MISSING IN VERSION 2 - thats why it didn pass 3 tests...' check whole grid for '-'
+    if(grid[0][0] != '-' && grid[0][1] != '-' && grid[0][2] != '-' &&
+       grid[1][0] != '-' && grid[1][1] != '-' && grid[1][2] != '-' &&
+       grid[2][0] != '-' && grid[2][1] != '-' && grid[2][2] != '-' &&
+            result.equals("None")){
+
+        result = "tie";
+    }
 
         return result;
     }
